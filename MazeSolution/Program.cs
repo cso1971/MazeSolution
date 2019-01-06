@@ -7,8 +7,8 @@ namespace MazeSolution
 {
     public static class Program
     {
-        private static MazeConnection _connection;
-        private static Navigator _navigator;
+        private static IMazeServerConnection _connection;
+        private static INavigator _navigator;
         private static Spiner _spin;
 
         public static void Main()
@@ -29,18 +29,26 @@ namespace MazeSolution
                 currentPoint = _navigator.Move(currentPoint.Position);
                 _spin.Turn();
             } while (currentPoint.Status != Status.TargetReached);
-            
-            Console.WriteLine($"Found target at position: ({_navigator.VisitedPoints.Last().Position.X}, {_navigator.VisitedPoints.Last().Position.Y})");
+
+            var target = _navigator.VisitedPoints.Last().Position;
+            Console.WriteLine($"Found target at position: ({target.X}, {target.Y})");
             Console.WriteLine($"Points visited in the last attempt: {_navigator.VisitedPoints.Count(x => x.CurrentAttempt)}");
             Console.WriteLine("Path to target:");
             Console.WriteLine("");
             
+            PrintVisitedPoints();
+            
+            Console.ReadKey();
+        }
+
+        private static void PrintVisitedPoints()
+        {
             for (var i = 1; i < 45; i++)
             {
                 for (var j = 1; j < 45; j++)
                 {
                     var point = _navigator.VisitedPoints.FirstOrDefault(x => x.Position == new Position(j, i));
-                    
+
                     if (point != null)
                         Console.Write(
                             point.CurrentAttempt
@@ -49,11 +57,9 @@ namespace MazeSolution
                     else
                         Console.Write(" ");
                 }
+
                 Console.WriteLine("|");
             }
-            
-            Console.ReadKey();
         }
-
     }
 }
