@@ -1,4 +1,4 @@
-# Maze Solver
+# Maze Solution
 
 ## To Run The Application
 ---
