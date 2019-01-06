@@ -5,7 +5,7 @@
 
 1. Ensure you have in your PC Visual Studio 2017 or JetBrains Rider.
 2. Ensure you have .Net Core 2.2 Framework SDK.
-3. Open the MazeGame solution with an IDE (Visual Studio 2017) (MazeGame.sln).
+3. Open the MazeGame solution MazeGame.sln with an IDE (Visual Studio 2017 or JetBrains Rider).
 4. Restore Nuget Packages.
 5. Run MazeServer.exe.
 6. Run the program from IDE (Ctrl+F5) or compilte it and run via command line with `dotnet MazeSolution.dll` from the Debug/donetapp2.2 folder
