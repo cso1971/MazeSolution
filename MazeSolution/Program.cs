@@ -9,34 +9,44 @@ namespace MazeSolution
     {
         private static IMazeServerConnection _connection;
         private static INavigator _navigator;
-        private static Spiner _spin;
+        private static Spinner _spin;
 
         public static void Main()
         {
             Console.WriteLine("Starting Maze Path Finder.");
 
             _connection = new MazeConnection();
-            _navigator = new Navigator(new MazeConnection());
-            _spin = new Spiner();
-            
-            var currentPoint = new Point(_connection.GetPosition().Position, DirectionEnum.East, 
-                _connection.GetDirections(), _connection.GetStatus().State);
-            
-            Console.Write("Finding path to the target: ");
-
-            do
+            try
             {
-                currentPoint = _navigator.Move(currentPoint.Position);
-                _spin.Turn();
-            } while (currentPoint.Status != Status.TargetReached);
+                _navigator = new Navigator(new MazeConnection());
+                _spin = new Spinner();
 
-            var target = _navigator.VisitedPoints.Last().Position;
-            Console.WriteLine($"Found target at position: ({target.X}, {target.Y})");
-            Console.WriteLine($"Points visited in the last attempt: {_navigator.VisitedPoints.Count(x => x.CurrentAttempt)}");
-            Console.WriteLine("Path to target:");
-            Console.WriteLine("");
-            
-            PrintVisitedPoints();
+                var currentPoint = new Point(_connection.GetPosition().Position, DirectionEnum.East,
+                    _connection.GetDirections(), _connection.GetStatus().State);
+
+                Console.Write("Finding path to the target: ");
+
+                do
+                {
+                    currentPoint = _navigator.Move(currentPoint.Position);
+                    _spin.Turn();
+                } while (currentPoint.Status != Status.TargetReached);
+
+                var target = _navigator.VisitedPoints.Last().Position;
+                Console.WriteLine($"Found target at position: ({target.X}, {target.Y})");
+                Console.WriteLine(
+                    $"Points visited in the last attempt: {_navigator.VisitedPoints.Count(x => x.CurrentAttempt)}");
+                Console.WriteLine("Path to target:");
+                Console.WriteLine("");
+
+                PrintVisitedPoints();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR: {ex.Message}");
+                Console.WriteLine($"Ensure that MazeServer.exe is running.");
+            }
+
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }

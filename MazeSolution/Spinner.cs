@@ -2,10 +2,10 @@
 
 namespace MazeSolution
 {
-    public class Spiner
+    public class Spinner
     {
         private int _counter;
-        public Spiner()
+        public Spinner()
         {
             _counter = 0;
         }
