@@ -37,7 +37,7 @@ namespace MazeSolution
             Console.WriteLine("");
             
             PrintVisitedPoints();
-            
+            Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
 
@@ -58,7 +58,7 @@ namespace MazeSolution
                         Console.Write(" ");
                 }
 
-                Console.WriteLine("|");
+                Console.WriteLine("");
             }
         }
     }

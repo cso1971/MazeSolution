@@ -86,6 +86,7 @@ namespace MazeSolution.MazePlayer
                 return x;
             }).ToList();
             
+            VisitedPoints.First().CurrentAttempt = true;
             return VisitedPoints.First();
         }
 
